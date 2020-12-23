@@ -5,21 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Petruta_Andrei_Lab5"
         mc:Ignorable="d"
-        Title="Phone Subscribers Management" Height="450" Width="800">
-    <Grid x:Name="grdMain">
-        <Button x:Name="btnNew" Content="New" HorizontalAlignment="Left" Margin="71,45,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnEdit" Content="Edit" HorizontalAlignment="Left" Margin="71,92,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="71,140,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="272,378,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="623,378,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
-        <ListBox x:Name="lstPhones" Margin="215,33,63,157"/>
-        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="71,217,0,0" VerticalAlignment="Top" Width="75" Height="38" FontWeight="Bold"/>
-        <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" Margin="637,282,0,0" VerticalAlignment="Top" Width="76"/>
-        <Button x:Name="btnPrevious" Content="Previous" HorizontalAlignment="Left" Margin="215,282,0,0" VerticalAlignment="Top" Width="75"/>
+        Title="Phone Subscribers Management" Height="450" Width="800" Loaded="frmMain_Loaded">
+    <Window.Resources>
+        <DataTemplate x:Key="PhoneNumbersTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Phonenum}" Grid.Column="0"/>
+                <TextBlock Text="{Binding Subscriber}" Grid.Column="1"/>
+            </Grid>
+        </DataTemplate>
+        <local:PhoneNumbersDataSet x:Key="phoneNumbersDataSet"/>
+        <CollectionViewSource x:Key="phoneNumbersViewSource" Source="{Binding PhoneNumbers,
+Source={StaticResource phoneNumbersDataSet}}"/>
+    </Window.Resources>
+    <Grid x:Name="grdMain" Loaded="grdMain_Loaded">
+        <Button x:Name="btnNew" Content="New" HorizontalAlignment="Left" Margin="71,45,0,0" VerticalAlignment="Top" Width="75" Click="btnNew_Click"/>
+        <Button x:Name="btnEdit" Content="Edit" HorizontalAlignment="Left" Margin="71,92,0,0" VerticalAlignment="Top" Width="75" Click="btnEdit_Click"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="71,140,0,0" VerticalAlignment="Top" Width="75" Click="btnDelete_Click"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="272,378,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="btnSave_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="623,378,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="btnCancel_Click"/>
+        <ListBox x:Name="lstPhones" Margin="215,33,63,157" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" ItemTemplate="{StaticResource
+ResourceKey=PhoneNumbersTemplate}"/>
+        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="71,217,0,0" VerticalAlignment="Top" Width="75" Height="38" FontWeight="Bold" Click="btnExit_Click"/>
+        <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" Margin="637,282,0,0" VerticalAlignment="Top" Width="76" Click="btnNext_Click"/>
+        <Button x:Name="btnPrevious" Content="Previous" HorizontalAlignment="Left" Margin="215,282,0,0" VerticalAlignment="Top" Width="75" Click="btnPrevious_Click"/>
         <Label x:Name="lblPhoneNum" Content="PhoneNumber" HorizontalAlignment="Left" Margin="291,316,0,0" VerticalAlignment="Top" Width="89"/>
         <Label x:Name="lblSubscriber" Content="Subcriber" HorizontalAlignment="Left" Margin="291,347,0,0" VerticalAlignment="Top" Width="89"/>
-        <TextBox x:Name="txtPhoneNumber" HorizontalAlignment="Left" Margin="400,320,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" IsEnabled="False"/>
-        <TextBox x:Name="txtSubscriber" HorizontalAlignment="Left" Margin="400,351,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" IsEnabled="False"/>
+        <TextBox x:Name="txtPhoneNumber" HorizontalAlignment="Left" Margin="400,320,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" IsEnabled="False"  Text="{Binding Path=Phonenum}"/>
+        <TextBox x:Name="txtSubscriber" HorizontalAlignment="Left" Margin="400,351,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" IsEnabled="False" Text="{Binding Path=Subscriber}"/>
 
     </Grid>
 </Window>
